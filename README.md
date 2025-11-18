@@ -1,3 +1,1 @@
-# DeepLearner StarterKit
-
-
+# SMLE – Simple Machine Learning Essentials

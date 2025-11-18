@@ -1,9 +1,5 @@
-import os
-import sys
 import yaml
 import argparse
-from pathlib import Path
-from typing import Dict, Any
 
 class ArgParser():
 
@@ -13,10 +9,10 @@ class ArgParser():
             prog=prog,
             description=description
         )
-    
+
         self._parser.add_argument(
-            "--cfg", 
-            type=str, 
+            "--cfg",
+            type=str,
             default="config.yaml",
             help="Path to YAML configuration file (default: config.yaml)"
         )

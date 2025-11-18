@@ -3,8 +3,10 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ravel"
-version = "0.1.0"
+name = "smle"
+version = "0.1.4"
+description = "Simple Machine Learning Essentials - a tiny utilities framework for ML/DL."
+readme = "README.md"
 
-[tool.setuptools]
-packages = ["ravel"]
+[tool.setuptools.packages.find]
+where = ["src"]

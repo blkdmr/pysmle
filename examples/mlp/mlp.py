@@ -11,9 +11,9 @@ from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
 
-from ravel.utils import set_seed
-from ravel.utils.logger import Logger
-from ravel.utils.args import ArgParser
+from smle.utils import set_seed
+from smle.utils.logger import Logger
+from smle.utils.args import ArgParser
 
 class CustomMLP(nn.Module):
 

@@ -32,7 +32,7 @@ device:
 
 training:
   epochs:
-  learning_rate:
+  lr:
   weight_decay:
   batch:
 

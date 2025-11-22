@@ -6,11 +6,9 @@
 
 SMLE is a lightweight Python framework that automates the "boring stuff" in Machine Learning projects. It handles configuration parsing, logging setup, and experiment tracking so you can focus on the model.
 
-
-
 ## Why SMLE?
 
-* **Auto-Configuration:** `smle.yaml` files are automatically parsed and injected into your entrypoint. No more hardcoded hyperparameters.
+* **Auto-Configuration:** `yaml` files are automatically parsed and injected into your entrypoint. No more hardcoded hyperparameters.
 * **Instant Logging:** All print statements and configs are automatically captured to local logs and remote trackers.
 * **Remote Monitoring:** Native integration with [Weights & Biases (WandB)](https://wandb.ai/) to monitor experiments from anywhere.
 
@@ -19,6 +17,7 @@ SMLE is a lightweight Python framework that automates the "boring stuff" in Mach
 When using the **wandb** section for remote logging, your API key is currently read directly from the `smle.yaml` file.
 
 **Crucial:** To prevent exposing your credentials, **do not commit** `smle.yaml` to GitHub or remote storage if it contains your real API key.
+
 * **Recommendation:** Add `smle.yaml` and `*.log` files to your `.gitignore` file immediately.
 * **Disable:** You can safely remove the `wandb` section from the YAML file if you do not need remote logging features.
 
@@ -50,9 +49,9 @@ app = SMLE()
 @app.entrypoint
 def main(args):
     # 'args' contains your smle.yaml configurations
-    print(f"Training with learning rate: {args.lr}")
+    print(f"Training with learning rate: {args['training']['lr']}")
 
-    # Your training logic here...
+    # Your logic here...
 
 if __name__ == "__main__":
     app.run()
@@ -76,11 +75,11 @@ smle create yaml
 
 Contributions are welcome! If you have ideas for improvements, feel free to fork the repository and submit a pull request.
 
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## Roadmap
 
@@ -99,3 +98,4 @@ Contributions are welcome! If you have ideas for improvements, feel free to fork
 - [ ] **Analysis:** Result analysis tools (diagrams, confusion matrices, etc.).
 - [ ] **Integrations:** Support for TensorBoard and similar tracking tools.
 - [ ] **Testing:** Comprehensive unit and integration tests for the framework.
+

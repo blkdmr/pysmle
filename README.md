@@ -1,4 +1,4 @@
-# SMLE: Simplify Machine Learning Enviroments
+# SMLE: Simplify Machine Learning Environments
 
 ![GitHub stars](https://img.shields.io/github/stars/blkdmr/smle?style=social) ![GitHub forks](https://img.shields.io/github/forks/blkdmr/smle?style=social)
 

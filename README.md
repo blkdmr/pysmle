@@ -73,6 +73,10 @@ smle create yaml
 
 ## Contributing
 
+**Join us on discord!**
+
+[![Discord](https://img.shields.io/discord/YOUR_SERVER_ID?label=Discord&logo=discord&logoColor=white)](https://discord.gg/WxDkvktBAa)
+
 Contributions are welcome! If you have ideas for improvements, feel free to fork the repository and submit a pull request.
 
 1. Fork the Project
@@ -85,17 +89,17 @@ Contributions are welcome! If you have ideas for improvements, feel free to fork
 
 ### 🚀 High Priority
 
-- [ ] **Documentation:** Write comprehensive documentation and examples.
-- [ ] **Security:** Improve user key management (e.g., WandB key) using `.env` file support.
-- [ ] **Configuration:** Add support for multiple/layered YAML files.
+- **Documentation:** Write comprehensive documentation and examples.
+- **Security:** Improve user key management (e.g., WandB key) using `.env` file support.
+- **Configuration:** Add support for multiple/layered YAML files.
 
 ### 🔮 Planned Features
 
-- [ ] **ML Templates:** Automated creation of standard project structures.
-- [ ] **Model Tools:** Utilities for Neural Network creation, training, and testing.
-- [ ] **Notifications:** Email notification system for completed training runs.
-- [ ] **Data Tools:** Data exploration and visualization helpers.
-- [ ] **Analysis:** Result analysis tools (diagrams, confusion matrices, etc.).
-- [ ] **Integrations:** Support for TensorBoard and similar tracking tools.
-- [ ] **Testing:** Comprehensive unit and integration tests for the framework.
+- **ML Templates:** Automated creation of standard project structures.
+- **Model Tools:** Utilities for Neural Network creation, training, and testing.
+- **Notifications:** Email notification system for completed training runs.
+- **Data Tools:** Data exploration and visualization helpers.
+- **Analysis:** Result analysis tools (diagrams, confusion matrices, etc.).
+- **Integrations:** Support for TensorBoard and similar tracking tools.
+- **Testing:** Comprehensive unit and integration tests for the framework.
 

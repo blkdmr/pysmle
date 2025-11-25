@@ -1,6 +1,6 @@
 # SMLE: Simplify Machine Learning Environments
 
-![GitHub stars](https://img.shields.io/github/stars/blkdmr/smle?style=social) ![GitHub forks](https://img.shields.io/github/forks/blkdmr/smle?style=social)
+![GitHub stars](https://img.shields.io/github/stars/blkdmr/smle?style=social) ![GitHub forks](https://img.shields.io/github/forks/blkdmr/smle?style=social) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/261c40f69583462baa200aee959bcc8f)](https://app.codacy.com/gh/blkdmr/smle/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ![PyPI version](https://img.shields.io/pypi/v/smle) ![License](https://img.shields.io/github/license/blkdmr/smle) [![PyPI Downloads](https://img.shields.io/pypi/dm/smle.svg?label=downloads&logo=pypi&color=blue)](https://pypi.org/project/smle/)
 
@@ -71,6 +71,17 @@ SMLE relies on a simple YAML structure. You can generate a blank template using:
 
 ```bash
 smle create yaml
+```
+
+### Configuration File Name
+
+By default, SMLE will look for a configuration file named `smle.yaml` in the current directory. If you would like to use a different name, a different location, or have multiple configuration files for different configurations, you can set the `config_file` property of SMLE to the path of your file. You must assign the filename before calling `run()`.
+
+```python
+app = SMLE()
+app.config_file = "my_file.yaml"
+...
+app.run()
 ```
 
 ## Contributing

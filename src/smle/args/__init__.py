@@ -2,28 +2,44 @@ import yaml
 import os
 import sys
 from colorama import Fore, Style, init
+from typing import Any
+
 
 class Parser:
 
-    def __init__(self, config_file:str ="smle.yaml"):
-
-        self._default =  "(default)" if config_file == "smle.yaml" else ""
-        self._config_file = config_file
-
+    def __init__(self):
+        self._default = ""
+        self._config_file: str = ""
+        self._args = {}
         # Initialize colorama
         init(autoreset=True)
 
+    @property
+    def config_file(self) -> str:
+        return self._config_file
+
+    @config_file.setter
+    def config_file(self, config_file: str) -> None:
+        self._config_file = config_file
         if not os.path.isfile(self._config_file):
             print(f"{Fore.RED}[SMLE] Configuration file {Fore.LIGHTYELLOW_EX}{self._config_file} {self._default}{Fore.RED} was not found.")
             print(f"{Fore.RED}[SMLE] Please use {Fore.LIGHTYELLOW_EX}smle create yaml{Fore.RED} to create it.{Style.RESET_ALL}")
-            sys.exit(1)
+            raise FileNotFoundError(
+                0,
+                f"Configuration file {self._config_file} was not found.",
+                self._config_file,
+            )
         else:
             print(f"{Fore.GREEN}[SMLE] Configuration file {Fore.LIGHTYELLOW_EX}{self._config_file} {self._default}{Fore.GREEN} loaded.{Style.RESET_ALL}")
 
-        self._args = {}
+        self._default =  "(default)" if config_file == "smle.yaml" else ""
 
-    def load_configuration(self):
+    def load_configuration(self) -> Any:
         """Loads the YAML configuration into the _args dictionary."""
+        # If no config file is set, use the default
+        if not self._config_file:
+            self.config_file = "smle.yaml"
+            
         with open(self._config_file) as f:
             self._args = yaml.safe_load(f)
 

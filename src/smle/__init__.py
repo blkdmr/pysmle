@@ -14,13 +14,22 @@ class SMLE:
     The base SMLE application
     """
 
-    def __init__(self):
+    def __init__(self, config_file: str="smle.yaml"):
         self._session_id = generate_haiku_id()
         self._entrypoint_fn = None
-        self._parser = Parser()
-        self._args = self._parser.load_configuration()
-        self._args["session_id"] = self._session_id
-        self._logger = Logger(self._args)
+        self._parser: Parser | None = None
+        self._config_file = config_file
+
+    @property
+    def config_file(self):
+        return self._config_file
+
+    @config_file.setter
+    def config_file(self, config_file: str) -> None:
+        """
+        The method to set the YAML file.
+        """
+        self._config_file = config_file
 
         self._keystore = KeyStore()
 
@@ -44,6 +53,11 @@ class SMLE:
             print(f"{Fore.RED}[SMLE] Please use {Fore.LIGHTYELLOW_EX}@app.entrypoint{Fore.RED} to register your main function{Style.RESET_ALL}")
             sys.exit(1)
 
+        self._parser = Parser()
+        self._parser.config_file = self._config_file
+        self._args = self._parser.load_configuration()
+        self._args["session_id"] = self._session_id
+        self._logger = Logger(self._args)
         self._logger.start()
 
         self._parser.print()

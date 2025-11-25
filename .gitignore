@@ -1,9 +1,14 @@
 __pycache__/
+venv/
+env/
+
 *.egg-info/
 dist/
 wandb/
 examples/
 build/
+
+.DS_Store
 
 .env
 # Ignore rule for templates directory

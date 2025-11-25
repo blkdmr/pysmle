@@ -1,6 +1,8 @@
 # SMLE: Simplify Machine Learning Environments
 
-![GitHub stars](https://img.shields.io/github/stars/blkdmr/smle?style=social) ![GitHub forks](https://img.shields.io/github/forks/blkdmr/smle?style=social) ![PyPI version](https://img.shields.io/pypi/v/smle) ![License](https://img.shields.io/github/license/blkdmr/smle)
+![GitHub stars](https://img.shields.io/github/stars/blkdmr/smle?style=social) ![GitHub forks](https://img.shields.io/github/forks/blkdmr/smle?style=social) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/261c40f69583462baa200aee959bcc8f)](https://app.codacy.com/gh/blkdmr/smle/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
+![PyPI version](https://img.shields.io/pypi/v/smle) ![License](https://img.shields.io/github/license/blkdmr/smle) [![PyPI Downloads](https://img.shields.io/pypi/dm/smle.svg?label=downloads&logo=pypi&color=blue)](https://pypi.org/project/smle/)
 
 **Stop writing boilerplate. Start training.**
 
@@ -96,17 +98,17 @@ Contributions are welcome! If you have ideas for improvements, feel free to fork
 
 ### 🚀 High Priority
 
-- [ ] **Documentation:** Write comprehensive documentation and examples.
-- [ ] **Security:** Improve user key management (e.g., WandB key) using `.env` file support.
-- [ ] **Configuration:** Add support for multiple/layered YAML files.
+- **Documentation:** Write comprehensive documentation and examples.
+- **Security:** Improve user key management (e.g., WandB key) using `.env` file support.
+- **Configuration:** Add support for multiple/layered YAML files.
 
 ### 🔮 Planned Features
 
-- [ ] **ML Templates:** Automated creation of standard project structures.
-- [ ] **Model Tools:** Utilities for Neural Network creation, training, and testing.
-- [ ] **Notifications:** Email notification system for completed training runs.
-- [ ] **Data Tools:** Data exploration and visualization helpers.
-- [ ] **Analysis:** Result analysis tools (diagrams, confusion matrices, etc.).
-- [ ] **Integrations:** Support for TensorBoard and similar tracking tools.
-- [ ] **Testing:** Comprehensive unit and integration tests for the framework.
+- **ML Templates:** Automated creation of standard project structures.
+- **Model Tools:** Utilities for Neural Network creation, training, and testing.
+- **Notifications:** Email notification system for completed training runs.
+- **Data Tools:** Data exploration and visualization helpers.
+- **Analysis:** Result analysis tools (diagrams, confusion matrices, etc.).
+- **Integrations:** Support for TensorBoard and similar tracking tools.
+- **Testing:** Comprehensive unit and integration tests for the framework.
 

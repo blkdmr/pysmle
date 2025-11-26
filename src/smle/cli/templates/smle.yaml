@@ -2,7 +2,7 @@
 # SMLE Configuration (Modify Carefully)
 # ---------------------------------------
 
-project:
+project: example
 
 # ---------------------------
 # Logging & Tracking
@@ -13,15 +13,6 @@ logger:
 
 wandb:
   entity: your_wandb_account
-
-  # ===================================================================
-  # !!! CRITICAL SECURITY WARNING !!!
-  # ===================================================================
-  # If you populate the below key
-  key: your_wandb_key
-  # DO NOT commit this file SMLE logs to Git or upload to remote storage.
-  # Your credentials and sensitive data will be exposed.
-  # You can safely remove the wandb section
 
 # ---------------------------------------
 # Example of User Section

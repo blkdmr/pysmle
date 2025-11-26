@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "smle"
-version = "0.0.2.dev1"
+version = "0.0.2.dev2"
 description = "Simplify Machine Learning Environments (SMLE) - A simple framework that takes care of the boring stuff in ML projects."
 
 authors = [
@@ -35,7 +35,9 @@ dependencies = [
   "pandas>=2.3.3",
   "matplotlib>=3.10.7",
   "scikit-learn>=1.7.2",
-  "colorama>=0.4.6"
+  "colorama>=0.4.6",
+  "requests>=2.32.5",
+  "python-dotenv>=1.2.1"
 ]
 
 requires-python = ">=3.11"

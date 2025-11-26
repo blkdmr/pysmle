@@ -37,8 +37,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_create.add_argument(
         "filetype",
+        choices=["yaml", "env"],
         nargs="?",
-        help="Tipe of file",
+        help="Type of file",
     )
 
     p_create.add_argument(

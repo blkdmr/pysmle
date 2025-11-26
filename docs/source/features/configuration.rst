@@ -50,7 +50,7 @@ Configuration File Name
 
 By default, SMLE will look for a configuration file named smle.yaml in the current directory.
 If you would like to use a different name, a different location, or have multiple configuration files for different configurations, you can set the config_file property of SMLE to the path of your file.
-You must assign the filename before calling :meth:`stop`.
+You must assign the filename before calling :meth:`run`.
 
 .. code-block:: python
 

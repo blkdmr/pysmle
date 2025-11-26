@@ -1,28 +1,37 @@
 import yaml
 import os
-import sys
 from colorama import Fore, Style, init
 from typing import Any, Dict
-
+from smle.secrets.keystore import KeyStore
 
 class Parser:
 
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self) -> None:
-        self._default: str = ""
-        self._config_file: str = ""
+
+        self._config_file: str = "smle.yaml"
         self._args: Dict[str, Any] = {}
+
+        self._keystore: KeyStore = KeyStore()
+
         # Initialize colorama
         init(autoreset=True)
 
-    @property
-    def config_file(self) -> str:
-        return self._config_file
+    def load_configuration(self) -> Any:
+        """Loads the YAML configuration into the _args dictionary."""
 
-    @config_file.setter
-    def config_file(self, config_file: str) -> None:
-        self._config_file = config_file
+        with open(self._config_file) as f:
+            self._args = yaml.safe_load(f)
+
+        default = "(default)" if self._config_file == "smle.yaml" else ""
         if not os.path.isfile(self._config_file):
-            print(f"{Fore.RED}[SMLE] Configuration file {Fore.LIGHTYELLOW_EX}{self._config_file} {self._default}{Fore.RED} was not found.")
+            print(f"{Fore.RED}[SMLE] Configuration file {Fore.LIGHTYELLOW_EX}{self._config_file} {default}{Fore.RED} was not found.")
             print(f"{Fore.RED}[SMLE] Please use {Fore.LIGHTYELLOW_EX}smle create yaml{Fore.RED} to create it.{Style.RESET_ALL}")
             raise FileNotFoundError(
                 0,
@@ -30,23 +39,17 @@ class Parser:
                 self._config_file,
             )
         else:
-            print(f"{Fore.GREEN}[SMLE] Configuration file {Fore.LIGHTYELLOW_EX}{self._config_file} {self._default}{Fore.GREEN} loaded.{Style.RESET_ALL}")
+            print(f"{Fore.GREEN}[SMLE] Configuration file {Fore.LIGHTYELLOW_EX}{self._config_file} {default}{Fore.GREEN} loaded.{Style.RESET_ALL}")
 
-        self._default =  "(default)" if config_file == "smle.yaml" else ""
 
-    def load_configuration(self) -> Any:
-        """Loads the YAML configuration into the _args dictionary."""
-        # If no config file is set, use the default
-        if not self._config_file:
-            self.config_file = "smle.yaml"
-            
-        with open(self._config_file) as f:
-            self._args = yaml.safe_load(f)
+        if self._args.get("wandb", {}).get("key"):
+            self._keystore.set_key("WANDB_API_KEY", self._args.get("wandb", {}).get("key"))
+            self._args.get("wandb", {}).pop("key")
+            print((
+                f"{Fore.RED}[SMLE] WANDB key in yaml file is deprecated. "
+                f"Please use {Fore.LIGHTYELLOW_EX}.env{Fore.RED} file instead.{Style.RESET_ALL}"
+            ))
 
-        return self._args
-
-    @property
-    def args(self) -> Dict[str, Any]:
         return self._args
 
     def print(self) -> None:
@@ -68,6 +71,18 @@ class Parser:
 
             # Join with plain slash and print
             print(f"{'/'.join(colored_parts)}: {v}")
+
+    @property
+    def config_file(self) -> str:
+        return self._config_file
+
+    @config_file.setter
+    def config_file(self, config_file: str) -> None:
+        self._config_file = config_file
+
+    @property
+    def args(self) -> Dict[str, Any]:
+        return self._args
 
     @staticmethod
     def _flatten_dict(d: dict, parent_key: str = "", sep: str = "/") -> dict:

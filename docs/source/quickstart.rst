@@ -48,7 +48,6 @@ You can configure the ``smle.yaml`` file with the hyperparameters and options fo
 
     wandb:
         entity: your_wandb_account
-        key: your_wandb_key
 
     seed: seed
     device: 'cpu'/'cuda'
@@ -64,6 +63,8 @@ You can configure the ``smle.yaml`` file with the hyperparameters and options fo
 
 .. tip::
     You can add new sections as needed (for example, ``model``, ``optimizer``, ``scheduler``) and access them via the same keys in ``args``. This makes it easy to manage multiple experiments by maintaining different YAML files.
+
+Set your WANDB API key in the ``.env`` file.
 
 
 2. Write Your Code

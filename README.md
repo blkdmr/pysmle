@@ -4,6 +4,8 @@
 
 ![PyPI version](https://img.shields.io/pypi/v/smle) ![License](https://img.shields.io/github/license/blkdmr/smle) [![PyPI Downloads](https://img.shields.io/pypi/dm/smle.svg?label=downloads&logo=pypi&color=blue)](https://pypi.org/project/smle/)
 
+[![Discord](https://dcbadge.limes.pink/api/server/WxDkvktBAa)](https://discord.gg/WxDkvktBAa)
+
 **Stop writing boilerplate. Start training.**
 
 SMLE is a lightweight Python framework that automates the "boring stuff" in Machine Learning projects. It handles configuration parsing, logging setup, and experiment tracking so you can focus on the model.
@@ -13,15 +15,6 @@ SMLE is a lightweight Python framework that automates the "boring stuff" in Mach
 * **Auto-Configuration:** `yaml` files are automatically parsed and injected into your entrypoint. No more hardcoded hyperparameters.
 * **Instant Logging:** All print statements and configs are automatically captured to local logs and remote trackers.
 * **Remote Monitoring:** Native integration with [Weights & Biases (WandB)](https://wandb.ai/) to monitor experiments from anywhere.
-
-### ⚠️ Security & WandB Configuration
-
-When using the **wandb** section for remote logging, your API key is currently read directly from the `smle.yaml` file.
-
-**Crucial:** To prevent exposing your credentials, **do not commit** `smle.yaml` to GitHub or remote storage if it contains your real API key.
-
-* **Recommendation:** Add `smle.yaml` and `*.log` files to your `.gitignore` file immediately.
-* **Disable:** You can safely remove the `wandb` section from the YAML file if you do not need remote logging features.
 
 ## Installation
 
@@ -65,15 +58,13 @@ if __name__ == "__main__":
 python main.py
 ```
 
-## Configuration (`smle.yaml`)
+## Configuration (`yaml`)
 
 SMLE relies on a simple YAML structure. You can generate a blank template using:
 
 ```bash
 smle create yaml
 ```
-
-### Configuration File Name
 
 By default, SMLE will look for a configuration file named `smle.yaml` in the current directory. If you would like to use a different name, a different location, or have multiple configuration files for different configurations, you can set the `config_file` property of SMLE to the path of your file. You must assign the filename before calling `run()`.
 
@@ -84,15 +75,22 @@ app.config_file = "my_file.yaml"
 app.run()
 ```
 
+### Weights and Biases API Key
+
+SMLE expects your Weights and Biases API key to be in the environment variable `WANDB_API_KEY`. You can put it in the `.env` file, but ensure `.env` is in your `.gitignore`. By default `smle init` creates a `.gitignore` that includes `.env`.
+
 ## Contributing
 
-Contributions are welcome! If you have ideas for improvements, feel free to fork the repository and submit a pull request.
+Contributions are welcome!
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+If you’re interested in helping, please feel free to join our [discord server](https://discord.gg/WxDkvktBAa) or the dedicated
+[discussion page](https://github.com/blkdmr/smle/discussions/11) and ping there your availability.
+
+We can then discuss a possible contribution together, answer any questions, and help you get started!
+
+**Please, before opening a pull request, consult our CONTRIBUTING.md**
+
+Thank you for your support!
 
 ## Roadmap
 
@@ -111,4 +109,3 @@ Contributions are welcome! If you have ideas for improvements, feel free to fork
 - **Analysis:** Result analysis tools (diagrams, confusion matrices, etc.).
 - **Integrations:** Support for TensorBoard and similar tracking tools.
 - **Testing:** Comprehensive unit and integration tests for the framework.
-

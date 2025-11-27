@@ -1,5 +1,4 @@
-import traceback
-import sys
+
 import os
 from colorama import Fore, Style
 from typing import Callable, Optional, Any
@@ -41,9 +40,7 @@ class SMLE:
         """
 
         if not self._entrypoint_fn:
-            print(f"{Fore.RED}[SMLE] No main function registered. {Style.RESET_ALL}")
-            print(f"{Fore.RED}[SMLE] Please use {Fore.LIGHTYELLOW_EX}@app.entrypoint{Fore.RED} to register your main function{Style.RESET_ALL}")
-            sys.exit(1)
+            raise RuntimeError(f"{Fore.RED}[SMLE] No main function registered. {Fore.RED}[SMLE] Please use {Fore.LIGHTYELLOW_EX}@app.entrypoint{Fore.RED} to register your main function{Style.RESET_ALL}")
 
         self._parser.config_file = self._config_file if self._config_file != None else "smle.yaml"
         self._args = self._parser.load_configuration()
@@ -62,11 +59,6 @@ class SMLE:
             #self._notifier.send_notification("end")
 
             return result
-        except Exception:
-            # Print the traceback on failure
-            #self._notifier.send_notification(traceback.format_exc())
-            print(traceback.format_exc())
-            sys.exit(1)
         finally:
             self._logger.stop()
 

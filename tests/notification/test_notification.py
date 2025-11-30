@@ -8,7 +8,15 @@ import sys
 # Add src to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../src'))
 
-from smle.Notification import Notifier, Service, Discord, Slack, Email
+from smle.Notification import (
+    Notifier,
+    Service,
+    Discord,
+    Slack,
+    Email,
+    Telegram,
+    TelegramBot,
+)
 
 
 class MockService(Service):
@@ -159,6 +167,73 @@ class TestDiscord:
         with pytest.raises(Exception):
             discord.send_notification("Test message")
 
+
+class TestTelegram:
+    """Test cases for Telegram service."""
+    
+    @patch.dict(os.environ, {
+        "TELEGRAM_BOT_TOKEN": "1234567890",
+        "TELEGRAM_CHAT_ID": "1234567890"
+    })
+    def test_init_with_env_var(self):
+        """Test Telegram initialization with environment variable."""
+        telegram = Telegram()
+        assert telegram._bot_token == "1234567890"
+        assert telegram._chat_id == "1234567890"
+        assert telegram._parse_mode is None
+        assert telegram._bot is None
+        assert telegram._telegram_api_url == "https://api.telegram.org/bot1234567890/sendMessage"
+    
+    def test_init_with_bot_and_chat_id(self):
+        """Test Telegram initialization with direct URL."""
+        chat_id = "1234567890"
+        bot_token = "1234567890"
+        telegram = Telegram(bot_token=bot_token, chat_id=chat_id)
+        assert telegram._bot_token == bot_token
+        assert telegram._chat_id == chat_id
+        assert telegram._parse_mode is None
+        assert telegram._bot is None
+        assert telegram._telegram_api_url == "https://api.telegram.org/bot1234567890/sendMessage"
+    
+
+    def test_init_with_bot(self):
+        """Test Telegram initialization with direct URL."""
+        chat_id = "1234567890"
+        bot_token = "1234567890"
+        class MockBot(TelegramBot):
+            def send_smle_notification(self, message: str) -> None:
+                pass
+        bot = MockBot()
+        telegram = Telegram(bot=bot)
+        assert telegram._bot == bot
+        assert telegram._telegram_api_url == "https://api.telegram.org/botNone/sendMessage"
+        assert telegram._parse_mode is None
+        assert telegram._bot_token is None
+        assert telegram._chat_id is None
+        with patch.object(bot, 'send_smle_notification') as mock_send_smle_notification:
+            telegram.send_notification("Test message")
+            mock_send_smle_notification.assert_called_once_with("Test message")
+
+    def test_init_with_parse_mode(self):
+        """Test Telegram initialization with parse mode."""
+        telegram = Telegram(bot_token="1234567890", chat_id="1234567890", parse_mode="Markdown")
+        assert telegram._parse_mode == "Markdown"
+    
+    @patch('smle.Notification.discord_service.requests.post')
+    def test_send_notification_success(self, mock_post):
+        """Test successful Telegram notification."""
+        mock_response = Mock()
+        mock_response.raise_for_status.return_value = None
+        mock_post.return_value = mock_response
+        
+        telegram = Telegram(bot_token="1234567890", chat_id="1234567890", parse_mode="Markdown")
+        telegram.send_notification("Test message")
+        mock_post.assert_called_once()
+        args, kwargs = mock_post.call_args
+        assert args[0] == "https://api.telegram.org/bot1234567890/sendMessage"
+        assert kwargs['json']['chat_id'] == "1234567890"
+        assert kwargs['json']['text'] == "Test message"
+        assert kwargs['params']['parse_mode'] == "Markdown"
 
 class TestSlack:
     """Test cases for Slack service."""

@@ -4,7 +4,7 @@ A flexible and extensible notification system for ML training alerts that suppor
 
 ## Features
 
-- 🚀 **Multiple Services**: Discord, Slack, Email support
+- 🚀 **Multiple Services**: Discord, Slack, Telegram, Email support
 - 🔧 **Extensible**: Easy to add new notification services
 - 🛡️ **Error Handling**: Graceful failure handling with detailed logging
 - 🧪 **Well Tested**: Comprehensive test suite with 95%+ coverage
@@ -14,14 +14,15 @@ A flexible and extensible notification system for ML training alerts that suppor
 ## Quick Start
 
 ```python
-from smle.Notification import Notifier, Discord, Slack
+from smle.Notification import Notifier, Discord, Slack, Telegram
 
 # Create notifier
 notifier = Notifier()
 
 # Add services
-notifier.add_service(Discord())  # Requires DISCORD_WEBHOOK env var
-notifier.add_service(Slack())    # Requires SLACK_WEBHOOK env var
+notifier.add_service(Discord())   # Requires DISCORD_WEBHOOK env var
+notifier.add_service(Slack())     # Requires SLACK_WEBHOOK env var
+notifier.add_service(Telegram())  # Require TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID env vars
 
 # Send notification
 notifier.notify("🚀 Training completed successfully!")
@@ -50,6 +51,16 @@ export DISCORD_WEBHOOK="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
 #### Slack
 ```bash
 export SLACK_WEBHOOK="https://hooks.slack.com/services/YOUR_WEBHOOK_URL"
+```
+
+#### Telegram
+By default Telegram needs tow values: a bot token and a chat ID
+
+Add `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` to the file `.env`
+  or 
+```bash
+export TELEGRAM_BOT_TOKEN="<YOUR_BOT_TOKEN>"
+export TELEGRAM_CHAT_ID="<YOUR_CHAT_ID>"
 ```
 
 #### Email
@@ -217,6 +228,31 @@ Slack notification service using webhooks.
 
 #### Constructor
 - `Slack(webhook_url: str = None)`: Initialize with webhook URL or SLACK_WEBHOOK env var
+
+### Telegram
+
+#### Constructor
+- `Telegram(bot_token: str="", chat_id: str="", parse_mode: Literal["Markdown", "HTML"] | None=None, bot: TelegramBot | None=None)`
+
+#### Ways to implement
+There are two ways to use Telegram Notifications:
+- Provide your bot token and a chat ID
+- Provide your bot
+
+##### Telegram with Token and Chat ID
+Pass `bot_token` and `chat_id` to the constructor or add `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` to the file `.env`.
+
+##### Telegram with Bot
+If you have an existing bot running in your application, have your bot implement the `TelegramBot` abstract base class, which requires the method `send_smle_notification(messages: str)`.
+
+```python
+from smle.Notification import TelegramBot
+
+class MyExistingTelegramBot(TelegramBot):
+    ...
+    def send_smle_notification(self, message: str) -> None:
+        self.send_message(message)
+```
 
 ### Email
 

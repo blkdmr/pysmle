@@ -34,13 +34,16 @@ from .service import Service
 from .discord_service import Discord
 from .slack_service import Slack
 from .email_service import Email
+from .telegram_service import Telegram, TelegramBot
 
 __all__ = [
     "Notifier",
     "Service", 
     "Discord",
     "Slack",
-    "Email"
+    "Email",
+    "Telegram",
+    "TelegramBot"
 ]
 
 __version__ = "1.0.0"
